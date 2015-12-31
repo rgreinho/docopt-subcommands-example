@@ -11,8 +11,9 @@ options:
     -v, --version               shows the version
 
 The subcommands are:
-    run     make the player run
-    jump    make the player jump
+    greet   greets other players
+    jump    makes the player jump
+    run     makes the player run
 """
 
 from docopt import docopt

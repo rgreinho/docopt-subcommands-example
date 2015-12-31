@@ -8,6 +8,42 @@ The example
 
 This example depicts a imaginary video game where we control a player, and we can make him/her jump, run and greet other players.
 
+Usage example
+^^^^^^^^^^^^^
+
+To start this tutorial, here are some usage examples and their outputs.
+
+The ``greet`` subcommand:
+
+.. code-block:: bash
+
+    $ python main.py greet
+    Hi other player(s)!
+
+The ``run`` subcommand:
+
+.. code-block:: bash
+
+    $ python main.py run --distance=10
+    player is going to run 10 meters.
+
+The ``run`` subcommand with a ``name`` for our player:
+
+.. code-block:: bash
+
+    $ python main.py -n Rémy run --distance=10000
+    Are you crazy? Rémy is not going to do that!
+
+Using a command which has not been created (yet):
+
+.. code-block:: bash
+
+    $ python main.py -n Rémy shoot
+    Unknown command. RTFM!.
+    usage:
+        control [-hv] [-n NAME] <command> [<args>]
+
+
 main.py
 ^^^^^^^
 
@@ -26,8 +62,9 @@ The main command is defined in the ``main.py`` module. Its help screen looks lik
         -v, --version               shows the version
 
     The subcommands are:
-        run     make the player run
-        jump    make the player jump
+        greet   greets other players
+        jump    makes the player jump
+        run     makes the player run
 
 This help screen comes directly from the docstring of the program, define in ``main.py``, line 2-15.
 
@@ -118,40 +155,5 @@ Each subcommand will reimplement the ``execute`` function, which will define the
 
     def execute(self):
         print('Hi other player(s)!')
-
-Usage example
-^^^^^^^^^^^^^
-
-To conclude this tutorial, here are some usage examples and their output.
-
-The ``greet`` subcommand:
-
-.. code-block:: bash
-
-    $ python main.py greet
-    Hi other player(s)!
-
-The ``run`` subcommand:
-
-.. code-block:: bash
-
-    $ python main.py run --distance=10
-    player is going to run 10 meters.
-
-The ``run`` subcommand with a ``name`` for our player:
-
-.. code-block:: bash
-
-    $ python main.py -n Rémy run --distance=10000
-    Are you crazy? Rémy is not going to do that!
-
-Using a command which has not been created (yet):
-
-.. code-block:: bash
-
-    $ python main.py -n Rémy shoot
-    Unknown command. RTFM!.
-    usage:
-        control [-hv] [-n NAME] <command> [<args>]
 
 .. _`DocOpt`: http://docopt.org/
