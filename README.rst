@@ -128,7 +128,6 @@ The first option is to use a bunch of ``if ... elif ... else``:
     else:
         print('Unknown command. RTFM!.')
         raise DocoptExit()
-        exit(1)
 
 But that is not a very clean solution.
 
@@ -141,7 +140,7 @@ A more elegant approach is to leverage the `getattr`_ function from the python l
     except AttributeError:
         print('Unknown command. RTFM!.')
         raise DocoptExit()
-        exit(1)
+        exit(100)
 
 commands.py
 ^^^^^^^^^^^

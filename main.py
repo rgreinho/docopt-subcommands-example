@@ -40,7 +40,6 @@ if __name__ == '__main__':
     except AttributeError:
         print('Unknown command. RTFM!.')
         raise DocoptExit()
-        exit(1)
 
     # Create an instance of the command.
     command = command_class(command_args, args)
