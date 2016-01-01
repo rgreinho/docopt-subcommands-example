@@ -19,15 +19,13 @@ The subcommands are:
 from docopt import docopt
 from docopt import DocoptExit
 
-from commands import Greet
-from commands import Jump
-from commands import Run
+import commands
 
 if __name__ == '__main__':
     args = docopt(__doc__, version='1.0.0', options_first=True)
 
     # Retrieve the command to execute.
-    command_name = args.pop('<command>').lower()
+    command_name = args.pop('<command>').capitalize()
 
     # Retrieve the command arguments.
     command_args = args.pop('<args>')
@@ -35,15 +33,17 @@ if __name__ == '__main__':
         command_args = {}
 
     # After 'poping' '<command>' and '<args>', what is left in the args dictionary are the global arguments.
-    if command_name == 'greet':
-        command = Greet(command_args, args)
-    elif command_name == 'jump':
-        command = Jump(command_args, args)
-    elif command_name == 'run':
-        command = Run(command_args, args)
-    else:
+
+    # Retrieve the class from the 'commands' module.
+    try:
+        command_class = getattr(commands, command_name)
+    except AttributeError:
         print('Unknown command. RTFM!.')
         raise DocoptExit()
         exit(1)
 
+    # Create an instance of the command.
+    command = command_class(command_args, args)
+
+    # Execute the command.
     command.execute()

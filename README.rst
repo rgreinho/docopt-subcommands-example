@@ -88,13 +88,13 @@ Now that our ``args`` dictionary is populated, we can extract the name of the su
 
 .. code-block:: python
 
-    28 command_name = args.pop('<command>').lower()
+    28 command_name = args.pop('<command>').capitalize()
 
 As well as its arguments:
 
 .. code-block:: python
 
-    32 command_args = args.pop('<args>')
+    31 command_args = args.pop('<args>')
 
 .. note::
 
@@ -103,12 +103,45 @@ As well as its arguments:
 
     .. code-block:: python
 
-        33 if command_args is None:
-        34     command_args = {}
+        32 if command_args is None:
+        33     command_args = {}
 
 Now our ``args`` dictionary contains only the global arguments. They will be made available to **ALL** the subcommands.
 
 For this example, it is assumed that a player must have a name, therefore the ``NAME`` argument was made global.
+
+Find the command to execute
+"""""""""""""""""""""""""""
+
+`DocOpt`_ does not provide a dispatcher to find the right function to execute, so we have to route the commands ourselves.
+
+The first option is to use a bunch of ``if ... elif ... else``:
+
+.. code-block:: python
+
+    if command_name == 'Greet':
+        command = Greet(command_args, args)
+    elif command_name == 'Jump':
+        command = Jump(command_args, args)
+    elif command_name == 'Run':
+        command = Run(command_args, args)
+    else:
+        print('Unknown command. RTFM!.')
+        raise DocoptExit()
+        exit(1)
+
+But that is not a very clean solution.
+
+A more elegant approach is to leverage the `getattr`_ fucntion from the python library:
+
+.. code-block:: python
+
+    try:
+        command_class = getattr(commands, command_name)
+    except AttributeError:
+        print('Unknown command. RTFM!.')
+        raise DocoptExit()
+        exit(1)
 
 commands.py
 ^^^^^^^^^^^
@@ -157,3 +190,4 @@ Each subcommand will reimplement the ``execute`` function, which will define the
         print('Hi other player(s)!')
 
 .. _`DocOpt`: http://docopt.org/
+.. _`getattr`: https://docs.python.org/2/library/functions.html?highlight=getattr#getattr
