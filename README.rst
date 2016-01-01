@@ -132,7 +132,7 @@ The first option is to use a bunch of ``if ... elif ... else``:
 
 But that is not a very clean solution.
 
-A more elegant approach is to leverage the `getattr`_ fucntion from the python library:
+A more elegant approach is to leverage the `getattr`_ function from the python library:
 
 .. code-block:: python
 
