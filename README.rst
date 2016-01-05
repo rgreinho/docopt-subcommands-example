@@ -140,7 +140,6 @@ A more elegant approach is to leverage the `getattr`_ function from the python l
     except AttributeError:
         print('Unknown command. RTFM!.')
         raise DocoptExit()
-        exit(100)
 
 commands.py
 ^^^^^^^^^^^
