@@ -3,7 +3,7 @@
 Control center for an imaginary video game.
 
 usage:
-    control [-hv] [-n NAME] <command> [<args>]
+    control [-hv] [-n NAME] <command> [<args>...]
 
 options:
     -h, --help                  shows the help
